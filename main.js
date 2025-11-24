@@ -1,13 +1,14 @@
+// For now basic JS — smooth scroll & nav active state
 
-// Minimal JS for interaction (mobile nav, form fallback)
-document.addEventListener('DOMContentLoaded', function() {
-  // Simple form submit handler to show a message
-  var form = document.querySelector('.contact-form');
-  if(form){
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      alert('Thanks! Your message has been received. (Form is demo-only)');
-      form.reset();
+document.addEventListener("DOMContentLoaded", () => {
+  const navLinks = document.querySelectorAll(".main-nav a");
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      navLinks.forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
     });
-  }
+  });
+
+  console.log("Sattvaa website loaded successfully!");
 });
