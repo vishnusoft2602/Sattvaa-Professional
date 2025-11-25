@@ -18,32 +18,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
-  const popup = document.getElementById("successPopup");
-  const closeBtn = document.getElementById("closePopup");
+  const submitBtn = document.getElementById("submitBtn");
+  const btnText = submitBtn.querySelector(".btn-text");
+  const loader = submitBtn.querySelector(".loader");
+  const successPopup = document.getElementById("successPopup");
+  const closePopup = document.getElementById("closePopup");
 
-  const btn = document.getElementById("submitBtn");
-  const btnText = btn.querySelector(".btn-text");
-  const loader = btn.querySelector(".loader");
-
-  form.addEventListener("submit", function () {
-    // Show loader
-    btn.disabled = true;
+  form.addEventListener("submit", (e) => {
     btnText.style.display = "none";
-    loader.style.display = "block";
+    loader.style.display = "inline-block";
 
-    // After Google Form submits (hidden iframe), show popup
+    // Google Forms does not reliably trigger iframe load, so we fake a completion callback after 1 second
     setTimeout(() => {
-      btn.disabled = false;
-      btnText.style.display = "inline";
+      // Show popup
+      successPopup.classList.remove("hidden");
+
+      // Reset button
+      btnText.style.display = "inline-block";
       loader.style.display = "none";
 
-      popup.classList.remove("hidden");
+      // Clear form
       form.reset();
-    }, 1800);
+    }, 1000);
   });
 
-  // Close popup
-  closeBtn.addEventListener("click", () => {
-    popup.classList.add("hidden");
+  closePopup.addEventListener("click", () => {
+    successPopup.classList.add("hidden");
   });
 });
