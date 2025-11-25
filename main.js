@@ -10,8 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
       link.classList.add("active");
     });
   });
-
-  console.log("Sattvaa website loaded successfully!");
 });
 
 
@@ -23,18 +21,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitBtn = document.getElementById("submitBtn");
   const successPopup = document.getElementById("successPopup");
   const closePopup = document.getElementById("closePopup");
-  const btnText = document.querySelector(".btn-text");
-  const loader = document.querySelector(".loader");
+
+  const btnText = submitBtn.querySelector(".btn-text");
+  const loader = submitBtn.querySelector(".loader");
 
   form.addEventListener("submit", function () {
-    // Show loader
+    // Show loader animation
     btnText.style.display = "none";
     loader.style.display = "inline-block";
+    submitBtn.disabled = true;
 
-    // Let Google Form submit normally (NO preventDefault)
+    // Let Google Form submit normally (no preventDefault)
     setTimeout(() => {
       loader.style.display = "none";
       btnText.style.display = "inline-block";
+      submitBtn.disabled = false;
 
       form.reset();
       successPopup.classList.remove("hidden");
