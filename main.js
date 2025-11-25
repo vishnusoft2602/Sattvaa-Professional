@@ -16,33 +16,34 @@ document.addEventListener("DOMContentLoaded", () => {
 // CONTACT FORM — Loader + Popup
 // ------------------------------
 
+function showPopup() {
+  const popup = document.getElementById("successPopup");
+  const btn = document.getElementById("submitBtn");
+  const btnText = btn.querySelector(".btn-text");
+  const loader = btn.querySelector(".loader");
+
+  btn.disabled = false;
+  btnText.style.display = "inline";
+  loader.style.display = "none";
+
+  popup.classList.remove("hidden");
+  
+  document.getElementById("contactForm").reset();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
-  const submitBtn = document.getElementById("submitBtn");
-  const btnText = submitBtn.querySelector(".btn-text");
-  const loader = submitBtn.querySelector(".loader");
-  const successPopup = document.getElementById("successPopup");
-  const closePopup = document.getElementById("closePopup");
+  const btn = document.getElementById("submitBtn");
+  const btnText = btn.querySelector(".btn-text");
+  const loader = btn.querySelector(".loader");
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", () => {
+    btn.disabled = true;
     btnText.style.display = "none";
-    loader.style.display = "inline-block";
-
-    // Google Forms does not reliably trigger iframe load, so we fake a completion callback after 1 second
-    setTimeout(() => {
-      // Show popup
-      successPopup.classList.remove("hidden");
-
-      // Reset button
-      btnText.style.display = "inline-block";
-      loader.style.display = "none";
-
-      // Clear form
-      form.reset();
-    }, 1000);
+    loader.style.display = "block";
   });
 
-  closePopup.addEventListener("click", () => {
-    successPopup.classList.add("hidden");
-  });
+  document.getElementById("closePopup").onclick = () => {
+    document.getElementById("successPopup").classList.add("hidden");
+  };
 });
