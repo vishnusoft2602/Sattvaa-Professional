@@ -15,35 +15,40 @@ document.addEventListener("DOMContentLoaded", () => {
 // ------------------------------
 // CONTACT FORM — Loader + Popup
 // ------------------------------
+// -----------------------------
+// GOOGLE FORM SUBMISSION HANDLER (Fix #2)
+// -----------------------------
+let formSubmitted = false;
 
-function showPopup() {
-  const popup = document.getElementById("successPopup");
-  const btn = document.getElementById("submitBtn");
-  const btnText = btn.querySelector(".btn-text");
-  const loader = btn.querySelector(".loader");
+document.getElementById("contactForm").addEventListener("submit", () => {
+  formSubmitted = true;
 
-  btn.disabled = false;
-  btnText.style.display = "inline";
-  loader.style.display = "none";
+  // Show loading animation
+  document.querySelector("#submitBtn .btn-text").style.display = "none";
+  document.querySelector("#submitBtn .loader").style.display = "inline-block";
+});
 
-  popup.classList.remove("hidden");
-  
-  document.getElementById("contactForm").reset();
-}
+// Detect when Google Form loads inside iframe
+const iframe = document.querySelector("iframe[name='hidden_iframe']");
 
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contactForm");
-  const btn = document.getElementById("submitBtn");
-  const btnText = btn.querySelector(".btn-text");
-  const loader = btn.querySelector(".loader");
+iframe.addEventListener("load", () => {
+  if (formSubmitted) {
 
-  form.addEventListener("submit", () => {
-    btn.disabled = true;
-    btnText.style.display = "none";
-    loader.style.display = "block";
-  });
+    // Reset form
+    document.getElementById("contactForm").reset();
 
-  document.getElementById("closePopup").onclick = () => {
-    document.getElementById("successPopup").classList.add("hidden");
-  };
+    // Hide loader and show text again
+    document.querySelector("#submitBtn .loader").style.display = "none";
+    document.querySelector("#submitBtn .btn-text").style.display = "inline-block";
+
+    // Show Success Popup
+    document.getElementById("successPopup").classList.remove("hidden");
+
+    formSubmitted = false;
+  }
+});
+
+// Close popup
+document.getElementById("closePopup").addEventListener("click", () => {
+  document.getElementById("successPopup").classList.add("hidden");
 });
