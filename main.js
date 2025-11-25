@@ -15,31 +15,33 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+// ------------------------------
+// Contact Form Submission + Popup
+// ------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
-  const popup = document.getElementById("successPopup");
-  const closeBtn = document.getElementById("closePopup");
+  const submitBtn = document.getElementById("submitBtn");
+  const successPopup = document.getElementById("successPopup");
+  const closePopup = document.getElementById("closePopup");
+  const btnText = document.querySelector(".btn-text");
+  const loader = document.querySelector(".loader");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  form.addEventListener("submit", function () {
+    // Show loader
+    btnText.style.display = "none";
+    loader.style.display = "inline-block";
 
-    // Disable button & show loading
-    const btn = form.querySelector("button");
-    btn.disabled = true;
-    btn.textContent = "Sending...";
-
-    // Simulate loading then show popup
+    // Let Google Form submit normally (NO preventDefault)
     setTimeout(() => {
-      btn.disabled = false;
-      btn.textContent = "Send Message";
+      loader.style.display = "none";
+      btnText.style.display = "inline-block";
 
-      popup.classList.remove("hidden"); // Show popup
-      form.reset(); // clear form
+      form.reset();
+      successPopup.classList.remove("hidden");
     }, 1200);
   });
 
-  // Close popup
-  closeBtn.addEventListener("click", () => {
-    popup.classList.add("hidden");
+  closePopup.addEventListener("click", () => {
+    successPopup.classList.add("hidden");
   });
 });
