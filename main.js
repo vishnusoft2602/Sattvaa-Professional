@@ -12,37 +12,38 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// ------------------------------
+// CONTACT FORM — Loader + Popup
+// ------------------------------
 
-// ------------------------------
-// Contact Form Submission + Popup
-// ------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
-  const submitBtn = document.getElementById("submitBtn");
-  const successPopup = document.getElementById("successPopup");
-  const closePopup = document.getElementById("closePopup");
+  const popup = document.getElementById("successPopup");
+  const closeBtn = document.getElementById("closePopup");
 
-  const btnText = submitBtn.querySelector(".btn-text");
-  const loader = submitBtn.querySelector(".loader");
+  const btn = document.getElementById("submitBtn");
+  const btnText = btn.querySelector(".btn-text");
+  const loader = btn.querySelector(".loader");
 
   form.addEventListener("submit", function () {
-    // Show loader animation
+    // Show loader
+    btn.disabled = true;
     btnText.style.display = "none";
-    loader.style.display = "inline-block";
-    submitBtn.disabled = true;
+    loader.style.display = "block";
 
-    // Let Google Form submit normally (no preventDefault)
+    // After Google Form submits (hidden iframe), show popup
     setTimeout(() => {
+      btn.disabled = false;
+      btnText.style.display = "inline";
       loader.style.display = "none";
-      btnText.style.display = "inline-block";
-      submitBtn.disabled = false;
 
+      popup.classList.remove("hidden");
       form.reset();
-      successPopup.classList.remove("hidden");
-    }, 1200);
+    }, 1800);
   });
 
-  closePopup.addEventListener("click", () => {
-    successPopup.classList.add("hidden");
+  // Close popup
+  closeBtn.addEventListener("click", () => {
+    popup.classList.add("hidden");
   });
 });
