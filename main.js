@@ -1,5 +1,6 @@
-// For now basic JS — smooth scroll & nav active state
-
+// ------------------------------
+// Navigation Active State
+// ------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.querySelectorAll(".main-nav a");
 
@@ -13,16 +14,23 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("Sattvaa website loaded successfully!");
 });
 
+
+// ------------------------------
+// Contact Form Submission Handler
+// ------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const status = document.getElementById("formStatus");
 
-  form.addEventListener("submit", function (e) {
-    status.textContent = "Sending...";
+  // Only run on contact page
+  if (form && status) {
+    form.addEventListener("submit", function (e) {
+      status.textContent = "Sending...";
 
-    setTimeout(() => {
-      status.textContent = "Message sent successfully!";
-      form.reset();
-    }, 1200);
-  });
+      setTimeout(() => {
+        status.textContent = "Message sent successfully!";
+        form.reset();
+      }, 1200);
+    });
+  }
 });
