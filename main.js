@@ -15,53 +15,31 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// ------------------------------
-// Contact Form Submission Handler
-// ------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
-  const status = document.getElementById("formStatus");
+  const popup = document.getElementById("successPopup");
+  const closeBtn = document.getElementById("closePopup");
 
-  // Only run on contact page
-  if (form && status) {
-    form.addEventListener("submit", function (e) {
-      status.textContent = "Sending...";
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-      setTimeout(() => {
-        status.textContent = "Message sent successfully!";
-        form.reset();
-      }, 1200);
-    });
-  }
+    // Disable button & show loading
+    const btn = form.querySelector("button");
+    btn.disabled = true;
+    btn.textContent = "Sending...";
+
+    // Simulate loading then show popup
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = "Send Message";
+
+      popup.classList.remove("hidden"); // Show popup
+      form.reset(); // clear form
+    }, 1200);
+  });
+
+  // Close popup
+  closeBtn.addEventListener("click", () => {
+    popup.classList.add("hidden");
+  });
 });
-document.getElementById("contactForm").addEventListener("submit", function () {
-  let btn = document.getElementById("submitBtn");
-  let text = btn.querySelector(".btn-text");
-  let loader = btn.querySelector(".loader");
-
-  // Show loading
-  btn.disabled = true;
-  text.style.display = "none";
-  loader.style.display = "inline-block";
-
-  // Fake delay for Google Forms redirect
-  setTimeout(() => {
-    showSuccessPopup();
-    btn.disabled = false;
-    text.style.display = "inline";
-    loader.style.display = "none";
-
-    document.getElementById("contactForm").reset();
-  }, 1500);
-});
-
-// Popup show
-function showSuccessPopup() {
-  document.getElementById("successPopup").style.display = "flex";
-}
-
-// Close popup
-document.getElementById("closePopup").onclick = () => {
-  document.getElementById("successPopup").style.display = "none";
-};
-
