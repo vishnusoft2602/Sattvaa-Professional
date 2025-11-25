@@ -34,3 +34,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+document.getElementById("contactForm").addEventListener("submit", function () {
+  let btn = document.getElementById("submitBtn");
+  let text = btn.querySelector(".btn-text");
+  let loader = btn.querySelector(".loader");
+
+  // Show loading
+  btn.disabled = true;
+  text.style.display = "none";
+  loader.style.display = "inline-block";
+
+  // Fake delay for Google Forms redirect
+  setTimeout(() => {
+    showSuccessPopup();
+    btn.disabled = false;
+    text.style.display = "inline";
+    loader.style.display = "none";
+
+    document.getElementById("contactForm").reset();
+  }, 1500);
+});
+
+// Popup show
+function showSuccessPopup() {
+  document.getElementById("successPopup").style.display = "flex";
+}
+
+// Close popup
+document.getElementById("closePopup").onclick = () => {
+  document.getElementById("successPopup").style.display = "none";
+};
+
