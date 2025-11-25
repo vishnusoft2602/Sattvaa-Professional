@@ -12,3 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("Sattvaa website loaded successfully!");
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("formStatus");
+
+  form.addEventListener("submit", function (e) {
+    status.textContent = "Sending...";
+
+    setTimeout(() => {
+      status.textContent = "Message sent successfully!";
+      form.reset();
+    }, 1200);
+  });
+});
