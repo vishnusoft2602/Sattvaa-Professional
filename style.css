@@ -188,14 +188,14 @@ img {
 }
 
 .popup.show {
-  display: flex !important;  /* Show only when JS adds .show */
+  display: flex ! important;  /* Show only when JS adds .show */
 }
 
 .hidden {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
+  display: none ! important;
+  opacity: 0 ! important;
+  visibility: hidden ! important;
+  pointer-events: none ! important;
 }
 
 .popup-content {
