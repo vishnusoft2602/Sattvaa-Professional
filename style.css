@@ -453,6 +453,12 @@ img {
   transition: 0.2s;
 }
 
+/* Hide popup and overlay by default */
+#successPopup,
+#successOverlay {
+  display: none;
+}
+
 .popup-content button:hover {
   background: #003f7a;
 }
