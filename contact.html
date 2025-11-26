@@ -6,12 +6,11 @@
   <title>Contact — Sattvaa Purified Water</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
-
   <header class="site-header small">
     <div class="container header-inner">
       <div class="brand">
+        <!-- Put the correct path to your logo in production -->
         <img src="images/sattvaa-logo.jpeg" alt="Sattvaa logo" class="logo" />
         <div class="brand-text">
           <h1>Sattvaa</h1>
@@ -33,7 +32,7 @@
 
     <div class="contact-container">
       <form 
-        id="contactForm"
+        id="contactForm" 
         method="POST"
         action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSe-JgF7mZyzPDL5k7jyRs3Yoxq2mSZG3hH_HaS157ylNeF8_A/formResponse"
         target="hidden_iframe"
@@ -64,18 +63,24 @@
         </button>
       </form>
 
+      <!-- hidden iframe that receives Google Form's response -->
       <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
     </div>
 
-    <!-- SUCCESS POPUP -->
-    <div id="successPopup" class="popup">
-      <div class="popup-content">
-        <h2>🎉 Message Sent!</h2>
-        <p>We received your message and will get back to you soon.</p>
-        <button id="closePopup">OK</button>
-      </div>
-    </div>
+    <!-- Success Popup Modal (hidden by default) -->
+   <div id="successPopup" class="popup hidden" aria-hidden="true">
+  <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+    <h2 id="successTitle">🎉 Message Sent!</h2>
+    <p>We received your message and will get back to you soon.</p>
+    <button id="closePopup">OK</button>
+  </div>
+</div>
 
+
+    <div class="contact-info">
+      <h4>Customer Care</h4>
+      <p>Call: <strong>8074590321</strong><br/>Email: <strong>info@sattvaa.com</strong></p>
+    </div>
   </main>
 
   <footer class="site-footer small">
@@ -84,55 +89,70 @@
     </div>
   </footer>
 
-
-  <!-- INLINE CONTACT PAGE SCRIPT -->
+  <!-- Inline script for contact page (only script that touches popup/form) -->
   <script>
-    (function () {
-      let formSubmitted = false;
+  (function(){
+    let formSubmitted = false;
 
-      const form = document.getElementById("contactForm");
-      const iframe = document.getElementById("hidden_iframe");
-      const submitBtn = document.getElementById("submitBtn");
-      const btnText = submitBtn.querySelector(".btn-text");
-      const loader = submitBtn.querySelector(".loader");
-      const popup = document.getElementById("successPopup");
-      const closeBtn = document.getElementById("closePopup");
+    const form = document.getElementById('contactForm');
+    const iframe = document.getElementById('hidden_iframe');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const loader = submitBtn.querySelector('.loader');
+    const popup = document.getElementById('successPopup');
+    const closeBtn = document.getElementById('closePopup');
 
-      // Popup must stay hidden on load
-      popup.classList.remove("show");
+    // Ensure popup hidden & loader hidden at start
+    if (popup) popup.classList.add('hidden');
+    if (loader) loader.style.display = 'none';
 
-      // Submit: send to Google Form
-      form.addEventListener("submit", function () {
-        formSubmitted = true;
-        btnText.style.display = "none";
-        loader.style.display = "inline-block";
-        submitBtn.disabled = true;
-      });
+    // on submit: do NOT prevent actual submission to Google — set flag so iframe load handler knows this was our submit
+    form.addEventListener('submit', function () {
+      formSubmitted = true;
+      if (btnText) btnText.style.display = 'none';
+      if (loader) loader.style.display = 'inline-block';
+      submitBtn.disabled = true;
+      // DO NOT call preventDefault here — we want the form to post into the iframe
+    });
 
-      // Google form response comes via iframe
-      iframe.addEventListener("load", function () {
-        if (!formSubmitted) return;
+    // iframe load occurs when Google responds — only act if formSubmitted flag is set
+    iframe.addEventListener('load', function () {
+      if (!formSubmitted) return;
+      setTimeout(function(){
+        // Reset UI
+        if (loader) loader.style.display = 'none';
+        if (btnText) btnText.style.display = 'inline-block';
+        submitBtn.disabled = false;
 
-        setTimeout(() => {
-          form.reset();
+        // Reset form
+        try { form.reset(); } catch(e){}
 
-          btnText.style.display = "inline-block";
-          loader.style.display = "none";
-          submitBtn.disabled = false;
+        // Show popup
+        popup.classList.remove('hidden');
+        popup.setAttribute('aria-hidden','false');
 
-          popup.classList.add("show");
-          formSubmitted = false;
-        }, 500);
-      });
+        // reset flag
+        formSubmitted = false;
+      }, 500);
+    });
 
-      closeBtn.addEventListener("click", () => {
-        popup.classList.remove("show");
-      });
-    })();
+    // close popup
+    closeBtn.addEventListener('click', function () {
+      popup.classList.add('hidden');
+      popup.setAttribute('aria-hidden','true');
+    });
+
+    // esc to close
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
+        popup.classList.add('hidden');
+        popup.setAttribute('aria-hidden','true');
+      }
+    });
+  })();
   </script>
 
-  <!-- global nav js -->
+  <!-- global script (navigation only) -->
   <script src="js/main.js"></script>
-
 </body>
 </html>
