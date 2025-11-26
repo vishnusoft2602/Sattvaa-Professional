@@ -174,26 +174,28 @@ img {
    SUCCESS POPUP (FINAL FIXED)
 ------------------------------ */
 
-/* ------------------------------
-   SUCCESS POPUP (FINAL)
------------------------------- */
-
-#successPopup {
-  display: none !important;
+.popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.5);
+  display: none;   /* IMPORTANT: Must default to none */
   align-items: center;
   justify-content: center;
   z-index: 9999;
 }
 
-/* When JS adds .show → popup becomes visible */
-#successPopup.show {
-  display: flex !important;
+.popup.show {
+  display: flex !important;  /* Show only when JS adds .show */
+}
+
+.hidden {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 .popup-content {
@@ -204,7 +206,7 @@ img {
   width: 90%;
   max-width: 350px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: fadeIn 0.25s ease;
+  animation: fadeIn 0.3s ease;
 }
 
 .popup-content h2 {
@@ -216,9 +218,9 @@ img {
   padding: 10px 20px;
   background: #00509d;
   color: #fff;
+  cursor: pointer;
   border: none;
   border-radius: 6px;
-  cursor: pointer;
 }
 
 .popup-content button:hover {
@@ -226,6 +228,6 @@ img {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.92); }
-  to   { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
