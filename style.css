@@ -313,14 +313,16 @@ img {
   font-size: 14px;
 }
 
-/* Form container */
+/* ------------------------------
+   CONTACT FORM
+------------------------------ */
+
 .contact-container {
   max-width: 500px;
   margin: auto;
   padding: 30px;
 }
 
-/* Floating input style */
 .input-group {
   position: relative;
   margin-bottom: 25px;
@@ -347,7 +349,6 @@ img {
   border-color: #3b82f6;
 }
 
-/* Floating label */
 .input-group label {
   position: absolute;
   left: 14px;
@@ -368,7 +369,10 @@ img {
   color: #3b82f6;
 }
 
-/* Submit button */
+/* ------------------------------
+   SUBMIT BUTTON
+------------------------------ */
+
 #submitBtn {
   width: 100%;
   padding: 14px;
@@ -378,8 +382,6 @@ img {
   color: white;
   font-size: 17px;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
   transition: 0.3s;
 }
 
@@ -388,7 +390,6 @@ img {
   cursor: not-allowed;
 }
 
-/* Button loader */
 .loader {
   width: 18px;
   height: 18px;
@@ -404,11 +405,9 @@ img {
   to { transform: rotate(360deg); }
 }
 
-/* SUCCESS POPUP */
-/* -----------------------------
-   SUCCESS POPUP STYLES
-------------------------------*/
-
+/* ------------------------------
+   SUCCESS POPUP (FIXED)
+------------------------------ */
 
 .popup {
   position: fixed;
@@ -422,12 +421,15 @@ img {
   justify-content: center;
   z-index: 9999;
 }
+
+/* MUST override popup */
 .hidden {
   display: none !important;
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
 .popup-content {
   background: #fff;
   padding: 25px 30px;
@@ -448,14 +450,10 @@ img {
   padding: 10px 20px;
   background: #00509d;
   color: #fff;
+  cursor: pointer;
   border: none;
   border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s;
 }
-
-
 
 .popup-content button:hover {
   background: #003f7a;
@@ -463,12 +461,5 @@ img {
 
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.9); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-#successPopup.hidden {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
+  to   { opacity: 1; transform(1); }
 }
