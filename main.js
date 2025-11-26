@@ -12,59 +12,51 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// ------------------------------
-// CONTACT FORM — Loader + Popup
-// ------------------------------
+
 
 // Track if user actually submitted the form
-let formSubmitted = false;
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contactForm");
+  const popup = document.getElementById("successPopup");
+  const overlay = document.getElementById("successOverlay");
+  const okBtn = document.getElementById("successOk");
 
-const form = document.getElementById("contactForm");
-const iframe = document.querySelector("iframe[name='hidden_iframe']");
-const submitBtn = document.getElementById("submitBtn");
-const successPopup = document.getElementById("successPopup");
-const closePopup = document.getElementById("closePopup");
+  // Ensure popup is hidden on page load
+  if (popup) popup.style.display = "none";
+  if (overlay) overlay.style.display = "none";
 
-// -----------------------------
-// FIXED SUBMIT HANDLER
-// -----------------------------
-form.addEventListener("submit", (event) => {
-  event.preventDefault(); // stops browser from auto-loading iframe immediately
-
-  formSubmitted = true;
-
-  // Show loader + hide text
-  submitBtn.querySelector(".btn-text").style.display = "none";
-  submitBtn.querySelector(".loader").style.display = "inline-block";
-
-  // Now manually submit to Google Forms
-  form.submit();
-});
-
-// -----------------------------
-// Detect iframe load (Google returns response)
-// -----------------------------
-iframe.addEventListener("load", () => {
-  if (formSubmitted) {
-
-    // Reset form fields
-    form.reset();
-
-    // Restore submit button text
-    submitBtn.querySelector(".loader").style.display = "none";
-    submitBtn.querySelector(".btn-text").style.display = "inline-block";
-
-    // Show success popup
-    successPopup.classList.remove("hidden");
-
-    // Reset flag
-    formSubmitted = false;
+  if (!form) {
+    console.error("Contact form not found!");
+    return;
   }
-});
 
-// -----------------------------
-// Close Success Popup
-// -----------------------------
-closePopup.addEventListener("click", () => {
-  successPopup.classList.add("hidden");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      mode: "no-cors"
+    })
+      .then(() => {
+        // Show popup on success
+        popup.style.display = "block";
+        overlay.style.display = "block";
+
+        // Clear the form after submitting
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again.");
+      });
+  });
+
+  // Close popup when clicking OK
+  okBtn.addEventListener("click", function () {
+    popup.style.display = "none";
+    overlay.style.display = "none";
+  });
 });
