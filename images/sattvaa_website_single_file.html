@@ -1,0 +1,204 @@
+import React from "react";
+
+// Single-file React component for a landing site for Sattvaa Purified Water
+// Tailwind CSS classes are used (assumes Tailwind is available in the project).
+// Replace image URLs below with the hosted paths created from the uploaded files.
+
+export default function SattvaaLanding() {
+  const labelImg = "/mnt/data/A_label_design_for_Sattva™_Purified_Water_is_divid.png";
+  const logoImg = "/mnt/data/sattvaa logo.jpeg";
+
+  return (
+    <div className="min-h-screen bg-white text-gray-800 antialiased">
+      {/* Header */}
+      <header className="border-b">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src={logoImg} alt="Sattvaa logo" className="h-12 w-12 object-contain rounded" />
+            <div>
+              <h1 className="text-xl font-semibold">Sattvaa</h1>
+              <p className="text-sm text-slate-500">Purified Water — The essence of clear living</p>
+            </div>
+          </div>
+
+          <nav>
+            <ul className="flex gap-6 items-center text-sm">
+              <li><a href="#home" className="hover:text-blue-600">Home</a></li>
+              <li><a href="#about" className="hover:text-blue-600">About</a></li>
+              <li><a href="#products" className="hover:text-blue-600">Products</a></li>
+              <li><a href="#contact" className="hover:text-blue-600">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section id="home" className="bg-gradient-to-b from-white to-slate-50">
+        <div className="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight">Sattvaa Purified Water</h2>
+            <p className="mt-4 text-lg text-slate-600">Pure. Refreshing. Responsibly packaged. Hydration that respects your well-being and the planet.</p>
+
+            <div className="mt-8 flex items-center gap-4">
+              <a href="#products" className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">Shop Products</a>
+              <a href="#contact" className="px-6 py-3 border rounded-lg text-blue-600 hover:bg-blue-50">Get in touch</a>
+            </div>
+
+            <ul className="mt-8 grid grid-cols-2 gap-4 text-sm text-slate-600">
+              <li>• Mineral-balanced purification</li>
+              <li>• HACCP & quality-tested</li>
+              <li>• Eco-friendly packaging</li>
+              <li>• Best served chilled</li>
+            </ul>
+          </div>
+
+          <div className="flex items-center justify-center">
+            <div className="bg-white p-6 rounded-2xl shadow-xl max-w-md w-full">
+              <img src={labelImg} alt="Sattvaa label" className="w-full object-contain rounded" />
+              <p className="mt-3 text-center text-sm text-slate-500">Net Quantity: 1 L — Purified Drinking Water</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About */}
+      <section id="about" className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+          <div className="md:col-span-2">
+            <h3 className="text-2xl font-bold">About Sattvaa</h3>
+            <p className="mt-4 text-slate-600">Sattvaa is a purified drinking water brand built on the principles of clarity, health, and sustainability. Our multi-stage purification process guarantees water that is safe, lightly mineralized for taste, and packaged with the planet in mind.</p>
+
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold">Pure & Safe</h4>
+                <p className="text-sm text-slate-500 mt-1">Advanced filtration and quality testing to meet strict safety standards.</p>
+              </div>
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold">Taste Balanced</h4>
+                <p className="text-sm text-slate-500 mt-1">Mineral profile tuned for a clean, crisp taste.</p>
+              </div>
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold">Eco Friendly</h4>
+                <p className="text-sm text-slate-500 mt-1">Recyclable packaging and responsible sourcing.</p>
+              </div>
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold">Local Care</h4>
+                <p className="text-sm text-slate-500 mt-1">Community-first practices and customer support.</p>
+              </div>
+            </div>
+          </div>
+
+          <aside className="p-6 border rounded-lg">
+            <h4 className="font-semibold">Quick Facts</h4>
+            <ul className="mt-3 text-sm text-slate-600 space-y-2">
+              <li><strong>pH:</strong> 7.2 (approx)</li>
+              <li><strong>TDS:</strong> Low (purified)</li>
+              <li><strong>Net Qty:</strong> 1 L</li>
+              <li><strong>Customer Care:</strong> 8074590321</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      {/* Products */}
+      <section id="products" className="bg-slate-50 py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <h3 className="text-2xl font-bold">Our Products</h3>
+          <p className="text-slate-600 mt-2">Different sizes and formats to suit home, office and on-the-go hydration.</p>
+
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Product Card 1 */}
+            <div className="bg-white p-6 rounded-xl shadow">
+              <img src={labelImg} alt="1L bottle" className="w-full h-40 object-contain mx-auto" />
+              <h4 className="mt-4 font-semibold">Sattvaa 1 L</h4>
+              <p className="text-sm text-slate-600 mt-2">Perfect for daily use — balanced mineral taste and responsibly bottled.</p>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="font-bold">₹20</span>
+                <button className="px-4 py-2 bg-blue-600 text-white rounded">Buy</button>
+              </div>
+            </div>
+
+            {/* Product Card 2 */}
+            <div className="bg-white p-6 rounded-xl shadow">
+              <div className="w-full h-40 bg-gradient-to-b from-blue-50 to-white rounded flex items-center justify-center">
+                <span className="text-slate-400">Bottle Mockup</span>
+              </div>
+              <h4 className="mt-4 font-semibold">Sattvaa 500 ml</h4>
+              <p className="text-sm text-slate-600 mt-2">On-the-go hydration in a convenient size.</p>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="font-bold">₹12</span>
+                <button className="px-4 py-2 bg-blue-600 text-white rounded">Buy</button>
+              </div>
+            </div>
+
+            {/* Product Card 3 */}
+            <div className="bg-white p-6 rounded-xl shadow">
+              <div className="w-full h-40 bg-gradient-to-b from-green-50 to-white rounded flex items-center justify-center">
+                <span className="text-slate-400">Bulk / Office</span>
+              </div>
+              <h4 className="mt-4 font-semibold">Sattvaa 5 L</h4>
+              <p className="text-sm text-slate-600 mt-2">Bulk option for offices and events.</p>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="font-bold">₹80</span>
+                <button className="px-4 py-2 bg-blue-600 text-white rounded">Buy</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 className="text-2xl font-bold">Get in touch</h3>
+            <p className="mt-3 text-slate-600">Questions about distribution, bulk orders, or product specs? Drop a message and we'll respond within one business day.</p>
+
+            <div className="mt-6 space-y-4">
+              <div>
+                <label className="block text-sm text-slate-600">Name</label>
+                <input className="mt-1 block w-full border rounded px-3 py-2" placeholder="Your name" />
+              </div>
+              <div>
+                <label className="block text-sm text-slate-600">Email</label>
+                <input className="mt-1 block w-full border rounded px-3 py-2" placeholder="you@email.com" />
+              </div>
+              <div>
+                <label className="block text-sm text-slate-600">Message</label>
+                <textarea className="mt-1 block w-full border rounded px-3 py-2" rows={4} placeholder="How can we help?"></textarea>
+              </div>
+              <div>
+                <button className="px-5 py-2 bg-blue-600 text-white rounded">Send Message</button>
+              </div>
+            </div>
+          </div>
+
+          <aside className="p-6 border rounded-lg">
+            <h4 className="font-semibold">Contact Details</h4>
+            <p className="text-sm text-slate-600 mt-2">Customer Care: <strong>8074590321</strong></p>
+            <p className="text-sm text-slate-600 mt-2">Email: <strong>info@sattvaa.com</strong></p>
+            <p className="text-sm text-slate-600 mt-2">Address: <strong>Manufacturing Unit — Bengaluru, India</strong></p>
+
+            <div className="mt-6">
+              <h5 className="font-semibold text-sm">Follow Us</h5>
+              <div className="mt-3 flex gap-3">
+                <a className="text-sm hover:underline">Instagram</a>
+                <a className="text-sm hover:underline">Facebook</a>
+                <a className="text-sm hover:underline">LinkedIn</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t">
+        <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-sm text-slate-600">© {new Date().getFullYear()} Sattvaa Purified Water. All rights reserved.</div>
+          <div className="text-sm text-slate-600">Terms · Privacy · FAQ</div>
+        </div>
+      </footer>
+    </div>
+  );
+}
