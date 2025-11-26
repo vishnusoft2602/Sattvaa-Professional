@@ -29,62 +29,52 @@
     <h2>Contact Us</h2>
     <p>Have questions about distribution, bulk orders, or product specs? Drop a message and we'll respond promptly.</p>
 
-  <div class="contact-container">
+    <div class="contact-container">
+      <form 
+        id="contactForm" 
+        method="POST"
+        action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSe-JgF7mZyzPDL5k7jyRs3Yoxq2mSZG3hH_HaS157ylNeF8_A/formResponse"
+        target="hidden_iframe"
+      >
+        <div class="input-group">
+          <input id="name" type="text" name="entry.2085350908" required placeholder=" " />
+          <label for="name">Your Name</label>
+        </div>
 
-  <form 
-    id="contactForm" 
-    method="POST"
-    onsubmit="formSubmitted = true;"
-    action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSe-JgF7mZyzPDL5k7jyRs3Yoxq2mSZG3hH_HaS157ylNeF8_A/formResponse"
-    target="hidden_iframe"
-  >
-    <div class="input-group">
-      <input type="text" name="entry.2085350908" required placeholder=" " />
-      <label>Your Name</label>
+        <div class="input-group">
+          <input id="email" type="email" name="entry.1505650649" required placeholder=" " />
+          <label for="email">Your Email</label>
+        </div>
+
+        <div class="input-group">
+          <input id="phone" type="text" name="entry.2017219355" required placeholder=" " />
+          <label for="phone">Phone Number</label>
+        </div>
+
+        <div class="input-group">
+          <textarea id="message" name="entry.818099428" required placeholder=" "></textarea>
+          <label for="message">Your Message</label>
+        </div>
+
+        <button id="submitBtn" type="submit">
+          <span class="btn-text">Send Message</span>
+          <span class="loader"></span>
+        </button>
+      </form>
+
+      <!-- hidden iframe that receives Google Form's response -->
+      <!-- NOTE: onload will run many times; we only act when formSubmitted is true -->
+      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
     </div>
 
-    <div class="input-group">
-      <input type="email" name="entry.1505650649" required placeholder=" " />
-      <label>Your Email</label>
+    <!-- Success Popup Modal (hidden by default) -->
+    <div id="successPopup" class="popup hidden" aria-hidden="true">
+      <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+        <h2 id="successTitle">🎉 Message Sent!</h2>
+        <p>We received your message and will get back to you soon.</p>
+        <button id="closePopup">OK</button>
+      </div>
     </div>
-
-    <div class="input-group">
-      <input type="text" name="entry.2017219355" required placeholder=" " />
-      <label>Phone Number</label>
-    </div>
-
-    <div class="input-group">
-      <textarea name="entry.818099428" required placeholder=" "></textarea>
-      <label>Your Message</label>
-    </div>
-
-    <button id="submitBtn" type="submit">
-      <span class="btn-text">Send Message</span>
-      <span class="loader"></span>
-    </button>
-  </form>
-
- <iframe 
-  name="hidden_iframe" 
-  id="hidden_iframe"
-  style="display:none;"
-  onload="if(window.formSubmitted){ showSuccessPopup(); }"
-></iframe>
-
-</div>
-
-<!-- Success Popup Modal -->
-<div id="successPopup" class="popup hidden">
-  <div class="popup-content">
-    <h2>🎉 Message Sent!</h2>
-    <p>We received your message and will get back to you soon.</p>
-    <button id="closePopup">OK</button>
-  </div>
-</div>
-
-
-
-
 
     <div class="contact-info">
       <h4>Customer Care</h4>
@@ -97,14 +87,74 @@
       <div>© 2025 Sattvaa Purified Water</div>
     </div>
   </footer>
+
+  <!-- Inline script specific to this contact page (keeps logic self-contained) -->
+  <script>
+    (function(){
+      // flags
+      let formSubmitted = false;
+
+      const form = document.getElementById('contactForm');
+      const iframe = document.getElementById('hidden_iframe');
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = submitBtn.querySelector('.btn-text');
+      const loader = submitBtn.querySelector('.loader');
+      const popup = document.getElementById('successPopup');
+      const closeBtn = document.getElementById('closePopup');
+
+      // ensure loader initially hidden
+      if (loader) loader.style.display = 'none';
+
+      // when form is submitted: set flag and show loader
+      form.addEventListener('submit', function () {
+        formSubmitted = true;
+        if (btnText) btnText.style.display = 'none';
+        if (loader) loader.style.display = 'inline-block';
+        submitBtn.disabled = true;
+        // DO NOT preventDefault — let Google form submit to the hidden iframe
+      });
+
+      // iframe 'load' fires many times; only respond if formSubmitted is true.
+      // This detects the Google Form's response load inside the hidden iframe.
+      iframe.addEventListener('load', function () {
+        if (!formSubmitted) return; // ignore initial or unrelated loads
+
+        // Small delay to allow the remote page to settle
+        setTimeout(function(){
+          // Reset UI
+          if (loader) loader.style.display = 'none';
+          if (btnText) btnText.style.display = 'inline-block';
+          submitBtn.disabled = false;
+
+          // Reset form fields
+          try { form.reset(); } catch(e){ /* ignore */ }
+
+          // Show popup
+          popup.classList.remove('hidden');
+          popup.setAttribute('aria-hidden', 'false');
+
+          // reset flag
+          formSubmitted = false;
+        }, 600); // 600ms is enough; adjust if needed
+      });
+
+      // close popup
+      closeBtn.addEventListener('click', function () {
+        popup.classList.add('hidden');
+        popup.setAttribute('aria-hidden','true');
+      });
+
+      // accessibility: close popup on esc
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
+          popup.classList.add('hidden');
+          popup.setAttribute('aria-hidden','true');
+        }
+      });
+    })();
+  </script>
+
+  <!-- keep your global main.js for navigation; make sure it does NOT duplicate contact handlers -->
   <script src="js/main.js"></script>
-<script>
-  let formSubmitted = false;
-
-  function showSuccessPopup() {
-    document.getElementById("successPopup").classList.remove("hidden");
-  }
-</script>
-
 </body>
 </html>
