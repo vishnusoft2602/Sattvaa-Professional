@@ -34,6 +34,7 @@
   <form 
     id="contactForm" 
     method="POST"
+    onsubmit="formSubmitted = true;"
     action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSe-JgF7mZyzPDL5k7jyRs3Yoxq2mSZG3hH_HaS157ylNeF8_A/formResponse"
     target="hidden_iframe"
   >
@@ -97,5 +98,13 @@
     </div>
   </footer>
   <script src="js/main.js"></script>
+<script>
+  let formSubmitted = false;
+
+  function showSuccessPopup() {
+    document.getElementById("successPopup").classList.remove("hidden");
+  }
+</script>
+
 </body>
 </html>
