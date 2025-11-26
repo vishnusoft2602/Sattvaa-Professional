@@ -63,7 +63,13 @@
     </button>
   </form>
 
-  <iframe name="hidden_iframe" style="display:none;"></iframe>
+ <iframe 
+  name="hidden_iframe" 
+  id="hidden_iframe"
+  style="display:none;"
+  onload="if(window.formSubmitted){ showSuccessPopup(); }"
+></iframe>
+
 </div>
 
 <!-- Success Popup Modal -->
