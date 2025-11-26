@@ -1,18 +1,13 @@
 // ------------------------------
-// Navigation Active State
+// Navigation Active State (clean)
 // ------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.querySelectorAll(".main-nav a");
-  const currentPage = window.location.pathname.split("/").pop();
-
-  // Highlight correct menu item based on page
-  navLinks.forEach(link => {
-    if (link.getAttribute("href") === currentPage) {
-      link.classList.add("active");
-    }
-  });
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
 
   navLinks.forEach(link => {
+    const href = link.getAttribute("href");
+    if (href === currentPage) link.classList.add("active");
     link.addEventListener("click", () => {
       navLinks.forEach(l => l.classList.remove("active"));
       link.classList.add("active");
@@ -20,6 +15,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// IMPORTANT:
-// DO NOT ADD CONTACT FORM CODE HERE.
-// CONTACT PAGE HAS ITS OWN INLINE SCRIPT THAT HANDLES SUBMISSION + POPUP.
+// IMPORTANT: No contact form code in this file.
+// Contact page uses its own inline script to handle Google Form + popup.
