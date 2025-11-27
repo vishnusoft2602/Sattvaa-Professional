@@ -130,7 +130,7 @@ img {
 
 .hero-image {
   width: 380px;         /* Adjust size here */
-  max-width: 100%;
+  max-width: 70%;
   object-fit: contain;
 }
 
