@@ -129,8 +129,8 @@ img {
 }
 
 .hero-image {
-  width: 380px;         /* Adjust size here */
-  max-width: 70%;
+  width: 150px;         /* Adjust size here */
+  max-width: 100%;
   object-fit: contain;
 }
 
